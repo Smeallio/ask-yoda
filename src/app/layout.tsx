@@ -1,23 +1,43 @@
+import { ReactNode } from "react";
+import { Container, Box } from "@mui/material";
+import { ThemeProvider } from "@mui/system";
+import theme from "./theme/muiTheme";
 import type { Metadata } from "next";
-import Head from "next/head";
-import "./globals.css";
+import "./globals.scss";
 
 export const metadata: Metadata = {
   title: "Yoda Translator",
-  description: "Enter some text and we'll show you how Yoda would say that",
+  description: "Enter some text and we'll repeat that back to you in Yoda",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      <Head>
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </Head>
-      <body>{children}</body>
+      <body>
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            minHeight: "100vh",
+            minWidth: "100vw",
+            display: "flex",
+            backgroundImage: "url(/images/dagobah.jpeg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <Container maxWidth={false}>{children}</Container>
+        </Box>
+        </ThemeProvider>
+      </body>
     </html>
   );
-}
+};
+
+export default Layout;

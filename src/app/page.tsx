@@ -1,5 +1,16 @@
-export default function Home() {
+import Layout from "./layout";
+import { Typography } from "@mui/material";
+
+const HomePage: React.FC = () => {
   return (
-    <main><h1>Hello, world!</h1></main>
+    <Layout>
+      <main>
+        <Typography variant="h1" color="secondary">
+          Hello, world!
+        </Typography>
+      </main>
+    </Layout>
   );
-}
+};
+
+export default HomePage;
