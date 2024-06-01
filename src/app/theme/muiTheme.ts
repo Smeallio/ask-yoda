@@ -1,17 +1,32 @@
-"use server"
+"use client";
 
 import { createTheme } from "@mui/system";
-import '../globals.scss';
+import localFont from "@next/font/local";
 
-const createMuiTheme = async () => {
+const starJedi = localFont({
+  src: [
+    {
+      path: "../../../public/font/Starjedi.ttf",
+    },
+  ],
+});
 
 const theme = createTheme({
-    typography: {
-        fontFamily: "StarJediBlock",
-    }
-})
+  palette: {
+    primary: {
+      main: "#ABC178",
+    },
+    secondary: {
+      main: "#FFF",
+    },
+  },
+  typography: {
+    h1: {
+      fontFamily: starJedi.style.fontFamily,
+      fontSize: "3rem",
+      color: "#FFF",
+    },
+  },
+});
 
-    return theme;
-}
-
-export default createMuiTheme;
+export default theme;

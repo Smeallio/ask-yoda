@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { Container, Box } from "@mui/material";
+import type { Metadata } from "next";
 import { ThemeProvider } from "@mui/system";
 import theme from "./theme/muiTheme";
-import type { Metadata } from "next";
 import "./globals.scss";
 
 export const metadata: Metadata = {
@@ -21,19 +21,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body>
-      <ThemeProvider theme={theme}>
-        <Box
-          sx={{
-            minHeight: "100vh",
-            minWidth: "100vw",
-            display: "flex",
-            backgroundImage: "url(/images/dagobah.jpeg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <Container maxWidth={false}>{children}</Container>
-        </Box>
+        <ThemeProvider theme={theme}>
+          <Box
+            sx={{
+              minHeight: "100vh",
+              minWidth: "100vw",
+              display: "flex",
+              backgroundImage: "url(/images/dagobah.jpeg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <Container maxWidth={false}>{children}</Container>
+          </Box>
         </ThemeProvider>
       </body>
     </html>
