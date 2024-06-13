@@ -27,11 +27,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               minHeight: "100vh",
               minWidth: "100vw",
               display: "flex",
+              justifyContent: "center",
               backgroundImage: "url(/images/dagobah.jpeg)",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.25)",
+                zIndex: 1,
+              }}
+            />
             <Container maxWidth={false}>{children}</Container>
           </Box>
         </ThemeProvider>
