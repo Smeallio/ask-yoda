@@ -1,8 +1,7 @@
 "use client";
 
-import { createTheme, lineHeight, textAlign } from "@mui/system";
+import { createTheme } from "@mui/material/styles";
 import localFont from "@next/font/local";
-import { text } from "stream/consumers";
 
 const starJedi = localFont({
   src: [
@@ -29,7 +28,10 @@ const theme = createTheme({
       textAlign: "center",
       lineHeight: "3.5rem",
     },
-  },
+    button: {
+        fontFamily: starJedi.style.fontFamily,
+    }
+  }
 });
 
 export default theme;

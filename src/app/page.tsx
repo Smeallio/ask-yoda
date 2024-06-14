@@ -1,4 +1,5 @@
 import Layout from "./layout";
+import Form from "./components/Form/Form";
 import { Box, Stack, Typography } from "@mui/material";
 import "./globals.scss";
 
@@ -16,6 +17,7 @@ const HomePage: React.FC = () => {
             alt="YODA"
             sx={{ width: "50%", height: "auto", marginTop: 2 }}
           />
+          <Form />
         </Stack>
       </main>
     </Layout>

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Container, Box } from "@mui/material";
 import type { Metadata } from "next";
-import { ThemeProvider } from "@mui/system";
+import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/muiTheme";
 import "./globals.scss";
 
@@ -23,6 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <body>
         <ThemeProvider theme={theme}>
           <Box
+            component={"section"}
             sx={{
               minHeight: "100vh",
               minWidth: "100vw",
