@@ -1,7 +1,8 @@
 "use client";
 
-import { createTheme } from "@mui/material/styles";
-import localFont from "@next/font/local";
+import { createTheme, styled } from "@mui/material/styles";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import localFont from "next/font/local";
 
 const starJedi = localFont({
   src: [
@@ -28,10 +29,27 @@ const theme = createTheme({
       textAlign: "center",
       lineHeight: "3.5rem",
     },
-    button: {
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
         fontFamily: starJedi.style.fontFamily,
-    }
-  }
+        width: "15rem",
+        "&:hover": {
+          color: "white",
+        },
+      },
+    },
+    },
+  },
 });
+
+export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
+  width: "25rem",
+  margin: "1.5rem",
+  padding: "0.5rem",
+  borderRadius: "0.5rem",
+}));
 
 export default theme;

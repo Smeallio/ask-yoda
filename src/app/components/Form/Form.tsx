@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Button, TextareaAutosize } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import { StyledTextArea } from "@/app/theme/muiTheme";
 import axios from 'axios';
 
 const Form: React.FC = () => {
@@ -28,14 +29,15 @@ const Form: React.FC = () => {
       onSubmit={handleSubmit}
       display={"flex"}
       flexDirection={"column"}
+      alignItems={"center"}
     >
-      <TextareaAutosize
+      <StyledTextArea
         minRows={3}
         maxRows={3}
-        placeholder={"What do you want to say, please tell me?"}
+        placeholder={"What you want to say, please tell me?"}
         value={formText}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormText(e.target.value)}
-      ></TextareaAutosize>
+      ></StyledTextArea >
       <Button type="submit" variant="contained" color="primary">Translate</Button>
     </Box>
   );
