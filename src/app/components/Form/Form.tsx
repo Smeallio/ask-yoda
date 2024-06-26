@@ -3,25 +3,30 @@
 import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { StyledTextArea } from "@/app/theme/muiTheme";
-import axios from 'axios';
+import axios from "axios";
 
 const Form: React.FC = () => {
   const [formText, setFormText] = useState("");
+  const [response, setResponse] = useState("");
+
+  console.log(formText);
+  console.log(response);
 
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-
     try {
-        const response = await axios.post(
-            `/api?text=${formText}`, {
-            headers: {
-                "X-Funtranslations-Api-Secret": process.env.NEXT_PUBLIC_YODA_API_KEY,
-            },
-        })
-        console.log(response.data);
+      console.log("Sending request to /api/openai with prompt:", formText);
+      const res = await axios.post("/api/openai", { prompt: formText });
+      console.log("Received response from /api/openai:", res.data);
+      setResponse(res.data.result);
     } catch (error) {
-        console.log("Error: ", error) }
-    };
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error: ", error.response?.data);
+      } else {
+        console.error("Unexpected error: ", error);
+      }
+    }
+  };
 
   return (
     <Box
@@ -36,9 +41,21 @@ const Form: React.FC = () => {
         maxRows={3}
         placeholder={"What you want to say, please tell me?"}
         value={formText}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormText(e.target.value)}
-      ></StyledTextArea >
-      <Button type="submit" variant="contained" color="primary">Translate</Button>
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+          setFormText(e.target.value)
+        }
+      ></StyledTextArea>
+      <Button type="submit" variant="contained" color="primary">
+        Translate
+      </Button>
+
+      {response && (
+        <Box mt={2}>
+          <h2>Response:</h2>
+
+          <p>{response}</p>
+        </Box>
+      )}
     </Box>
   );
 };

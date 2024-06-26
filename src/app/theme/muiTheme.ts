@@ -34,16 +34,19 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-        fontFamily: starJedi.style.fontFamily,
-        width: "15rem",
-        "&:hover": {
-          color: "white",
+          fontFamily: starJedi.style.fontFamily,
+          fontSize: "1.25rem",
+          width: "15rem",
+          "&:hover": {
+            color: "white",
+          },
         },
       },
     },
-    },
   },
 });
+
+// Can the below be added into the above? 
 
 export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
   width: "25rem",
