@@ -12,6 +12,14 @@ const starJedi = localFont({
   ],
 });
 
+const starJediHol = localFont({
+  src: [
+    {
+      path: "../../../public/font/Starjhol.ttf",
+    },
+  ],
+});
+
 const theme = createTheme({
   palette: {
     primary: {

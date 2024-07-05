@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { StyledTextArea } from "@/app/theme/muiTheme";
-import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
+import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import axios from "axios";
 
 const Form: React.FC = () => {
@@ -41,11 +41,15 @@ const Form: React.FC = () => {
           setFormText(e.target.value)
         }
       ></StyledTextArea>
-      <Button type="submit" variant="contained" color="primary" endIcon={<QuestionAnswerOutlinedIcon />}>
-        Yoda
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        endIcon={<QuestionAnswerOutlinedIcon />}
+        sx={{ textTransform: "none" }}
+      >
+        ASK YoDA
       </Button>
-      <Typography variant="body1">Ask Yoda</Typography>
-
       {response && (
         <Box mt={2} color={"white"}>
           <Typography variant="body1">{response}</Typography>
