@@ -26,10 +26,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Box
             component={"section"}
             sx={{
-              minHeight: "100%",
+              minHeight: "100vh",
               minWidth: "100vw",
-              display: "flex",
-              justifyContent: "center",
+              // display: "flex",
+              // justifyContent: "center",
+              // alignItems: "center",
               position: "absolute",
               top: 0,
               left: 0,

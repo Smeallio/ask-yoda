@@ -4,7 +4,7 @@ const Header: React.FC = () => {
   return (
     <>
       <Typography variant="h1" color="secondary">
-        You want to say, what do?
+        You want to ask, what do?
       </Typography>
       <Box
         component="img"

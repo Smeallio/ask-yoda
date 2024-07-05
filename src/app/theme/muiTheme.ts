@@ -29,6 +29,12 @@ const theme = createTheme({
       textAlign: "center",
       lineHeight: "3.5rem",
     },
+    body1: {
+      fontFamily: starJedi.style.fontFamily,
+      fontSize: "1rem",
+      color: "#FFF",
+      textAlign: "center",
+    }
   },
   components: {
     MuiButton: {
