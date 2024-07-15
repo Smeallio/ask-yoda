@@ -42,6 +42,7 @@ const theme = createTheme({
       fontSize: "1rem",
       color: "#FFF",
       textAlign: "center",
+      textTransform: "lowercase",
     }
   },
   components: {

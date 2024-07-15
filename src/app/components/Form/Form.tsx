@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button} from "@mui/material";
 import { StyledTextArea } from "@/app/theme/muiTheme";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
+import Response from "../Response/Response";
 import axios from "axios";
 
 const Form: React.FC = () => {
@@ -23,6 +24,8 @@ const Form: React.FC = () => {
       }
     }
   };
+
+  console.log(response);
 
   return (
     <Box
@@ -50,11 +53,7 @@ const Form: React.FC = () => {
       >
         ASK YoDA
       </Button>
-      {response && (
-        <Box mt={2} color={"white"}>
-          <Typography variant="body1">{response}</Typography>
-        </Box>
-      )}
+      {response && <Response response={response} />}
     </Box>
   );
 };
