@@ -1,26 +1,29 @@
-import { ReactNode } from "react";
 import { Container, Box } from "@mui/material";
-import type { Metadata } from "next";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/muiTheme";
+import { LayoutProps } from "./interfaces/LayoutProps";
 import "./globals.scss";
 
-export const metadata: Metadata = {
-  title: "Yoda Translator",
-  description: "Enter some text and we'll repeat that back to you in Yoda",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
-interface LayoutProps {
-  children: ReactNode;
-}
+// export const metadata = {
+//   title: "Yoda Translator",
+//   description: "Enter some text and we'll repeat that back to you in Yoda",
+//   icons: {
+//     icon: "/favicon.ico",
+//   },
+// };
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+        {" "}
+        <title>Yoda Translator</title>
+        <meta
+          name="description"
+          content="Enter some text and we'll repeat that back to you in Yoda"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body>
         <ThemeProvider theme={theme}>
           <Box

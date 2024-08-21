@@ -4,18 +4,17 @@ import { useState } from "react";
 import { Box, Button} from "@mui/material";
 import { StyledTextArea } from "@/app/theme/muiTheme";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-import Response from "../Response/Response";
+import { FormProps } from "@/app/interfaces/FormProps";
 import axios from "axios";
 
-const Form: React.FC = () => {
+const Form: React.FC<FormProps> = ( {onReceiveResponse} ) => {
   const [formText, setFormText] = useState<string>("");
-  const [response, setResponse] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
     try {
       const res = await axios.post("/api/openai", { prompt: formText });
-      setResponse(res.data.result);
+      onReceiveResponse(res.data.result);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Axios error: ", error.response?.data);
@@ -25,7 +24,7 @@ const Form: React.FC = () => {
     }
   };
 
-  console.log(response);
+  // console.log(response);
 
   return (
     <Box
@@ -53,7 +52,7 @@ const Form: React.FC = () => {
       >
         ASK YoDA
       </Button>
-      {response && <Response response={response} />}
+      {/* {response && <Response response={response} />} */}
     </Box>
   );
 };
