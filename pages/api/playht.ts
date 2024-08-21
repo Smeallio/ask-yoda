@@ -9,6 +9,16 @@ const handler = async (
     try {
       const { text, voice, output_format, voice_engine } = req.body;
 
+      const apiKey = process.env.PLAYHT_API_KEY;
+      const userId = process.env.PLAYHT_USER_ID;
+
+      console.log("API Key ", apiKey);
+      console.log("userId ", userId);
+
+      if (!apiKey || !userId) {
+        return res.status(500).json({ error: "Missing API key or User ID" });
+      }
+
       const response = await axios.post(
         "https://api.play.ht/api/v2/tts",
         { text, voice, output_format, voice_engine },
@@ -16,8 +26,8 @@ const handler = async (
           headers: {
             accept: "text/event-stream",
             "content-type": "application/json",
-            AUTHORIZATION: process.env.PLAYHT_API_KEY,
-            "X-USER-ID": process.env.PLAYHT_USER_ID,
+            AUTHORIZATION: apiKey,
+            "X-USER-ID": userId,
           },
         }
       );

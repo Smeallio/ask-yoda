@@ -17,7 +17,9 @@ const Response: React.FC<ResponseProps> = ({ response }) => {
           voice_engine: "PlayHT2.0",
         });
 
-        setAudioUrl(data.audioUrl);
+        console.log(data);
+
+        setAudioUrl(data.url);
       } catch (error) {
         console.error("Error fetching audio from Play.ht:", error);
       }
@@ -27,8 +29,6 @@ const Response: React.FC<ResponseProps> = ({ response }) => {
       fetchAudio();
     }
   }, [response]);
-
-  console.log(audioUrl);
 
   return (
     <Box display="flex" alignItems="center" mt={2} color={"white"}>
@@ -72,6 +72,11 @@ const Response: React.FC<ResponseProps> = ({ response }) => {
       >
         {response}
       </Typography>
+      {audioUrl && (
+        <audio controls>
+          <source src={audioUrl} type="audio/mpeg" />
+        </audio>
+      )}
     </Box>
   );
 };
