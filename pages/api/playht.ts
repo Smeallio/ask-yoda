@@ -32,6 +32,8 @@ const handler = async (
         }
       );
 
+      console.log("PlayHT Response Data: ", response.data);
+
       res.status(200).json(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {

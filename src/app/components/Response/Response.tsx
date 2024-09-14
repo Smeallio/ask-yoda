@@ -10,6 +10,7 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
 
   const startAudioGeneration = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.post("/api/playht", {
         text: yodaResponseText,
         voice:
@@ -23,13 +24,16 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
       setRequestId(data.id);
     } catch (error) {
       console.error("Error starting audio generation:", error);
+      setLoading(false);
     }
   };
 
   const pollStatus = async (id: string) => {
     const interval = setInterval(async () => {
       try {
-        const { data } = await axios.get(`api/checl-status?id=${id}`);
+        const { data } = await axios.get(`/api/check-playht-status?id=${id}`);
+
+        console.log("ping");
 
         if (data.url) {
           setAudioUrl(data.url);
@@ -54,6 +58,8 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
       pollStatus(requestId);
     }
   }, [requestId]);
+
+  console.log(requestId);
 
   return (
     <Box display="flex" alignItems="center" mt={2} color={"white"}>
