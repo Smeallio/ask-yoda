@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
           >
             <Header />
             <Form onReceiveResponse={handleResponse} />
-            {responseData && <Response response={responseData} />}
+            {responseData && <Response yodaResponseText={responseData} />}
           </Stack>
         </main>
       </Layout>

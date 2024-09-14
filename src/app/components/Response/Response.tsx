@@ -3,32 +3,57 @@ import { Box, Typography } from "@mui/material";
 import { ResponseProps } from "@/app/interfaces/ResponseProps";
 import axios from "axios";
 
-const Response: React.FC<ResponseProps> = ({ response }) => {
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
+  const [audioUrl, setAudioUrl] = useState<string | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [requestId, setRequestId] = useState<string | null>(null);
+
+  const startAudioGeneration = async () => {
+    try {
+      const { data } = await axios.post("/api/playht", {
+        text: yodaResponseText,
+        voice:
+          "s3://voice-cloning-zero-shot/34070329-d070-4390-b9c3-239a5504d31b/original/manifest.json",
+        output_format: "mp3",
+        voice_engine: "PlayHT2.0",
+      });
+
+      console.log(data);
+
+      setRequestId(data.id);
+    } catch (error) {
+      console.error("Error starting audio generation:", error);
+    }
+  };
+
+  const pollStatus = async (id: string) => {
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await axios.get(`api/checl-status?id=${id}`);
+
+        if (data.url) {
+          setAudioUrl(data.url);
+          setLoading(false);
+          clearInterval(interval);
+        } else {
+          console.log("Status: ", data.status);
+        }
+      } catch (error) {
+        console.error("error polling status: ", error);
+        clearInterval(interval);
+      }
+    }, 3000);
+  };
 
   useEffect(() => {
-    const fetchAudio = async () => {
-      try {
-        const { data } = await axios.post("/api/playht", {
-          text: response,
-          voice:
-            "s3://voice-cloning-zero-shot/34070329-d070-4390-b9c3-239a5504d31b/original/manifest.json",
-          output_format: "mp3",
-          voice_engine: "PlayHT2.0",
-        });
+    startAudioGeneration();
+  }, [yodaResponseText]);
 
-        console.log(data);
-
-        setAudioUrl(data.url);
-      } catch (error) {
-        console.error("Error fetching audio from Play.ht:", error);
-      }
-    };
-
-    if (response) {
-      fetchAudio();
+  useEffect(() => {
+    if (requestId) {
+      pollStatus(requestId);
     }
-  }, [response]);
+  }, [requestId]);
 
   return (
     <Box display="flex" alignItems="center" mt={2} color={"white"}>
@@ -70,9 +95,11 @@ const Response: React.FC<ResponseProps> = ({ response }) => {
           },
         }}
       >
-        {response}
+        {yodaResponseText}
       </Typography>
-      {audioUrl && (
+      {loading ? (
+        <p>Loading audio....</p>
+      ) : ( 
         <audio controls>
           <source src={audioUrl} type="audio/mpeg" />
         </audio>

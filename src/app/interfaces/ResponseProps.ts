@@ -1,3 +1,3 @@
 export interface ResponseProps {
-    response: string;
+    yodaResponseText: string;
   }
