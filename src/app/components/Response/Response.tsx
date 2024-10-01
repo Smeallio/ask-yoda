@@ -4,9 +4,12 @@ import { ResponseProps } from "@/app/interfaces/ResponseProps";
 import axios from "axios";
 
 const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
-  const [audioUrl, setAudioUrl] = useState<string | undefined>(undefined);
+  const [audioResponse, setAudioResponse] = useState<string | undefined>(
+    undefined
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [requestId, setRequestId] = useState<string | null>(null);
+  const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>(null);
 
   const startAudioGeneration = async () => {
     try {
@@ -20,46 +23,71 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
       });
 
       console.log(data);
-
-      setRequestId(data.id);
+      setAudioResponse(data);
     } catch (error) {
       console.error("Error starting audio generation:", error);
       setLoading(false);
     }
   };
 
-  const pollStatus = async (id: string) => {
-    const interval = setInterval(async () => {
-      try {
-        const { data } = await axios.get(`/api/check-playht-status?id=${id}`);
-
-        console.log("ping");
-
-        if (data.url) {
-          setAudioUrl(data.url);
-          setLoading(false);
-          clearInterval(interval);
-        } else {
-          console.log("Status: ", data.status);
+  const getUrlFromResponse = (response: string): string => {
+    try {
+      const lines = response.split("\n");
+      for (const line of lines) {
+        if (line.startsWith("data:")) {
+          const data = JSON.parse(line.replace("data: ", ""));
+          console.log(data);
+          if (data.stage === "complete") {
+            return data.url;
+          }
         }
-      } catch (error) {
-        console.error("error polling status: ", error);
-        clearInterval(interval);
       }
-    }, 3000);
+    } catch (error) {
+      console.error("Error parsing response:", error);
+    }
   };
+
+  // const pollStatus = async (id: string) => {
+  //   const interval = setInterval(async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/check-playht-status?id=${id}`);
+
+  //       console.log("ping");
+
+  //       if (data.url) {
+  //         setAudioUrl(data.url);
+  //         setLoading(false);
+  //         clearInterval(interval);
+  //       } else {
+  //         console.log("Status: ", data.status);
+  //       }
+  //     } catch (error) {
+  //       console.error("error polling status: ", error);
+  //       clearInterval(interval);
+  //     }
+  //   }, 3000);
+  // };
+
+  useEffect(() => {
+    if (audioResponse) {
+      const url = getUrlFromResponse(audioResponse);
+      setAudioResponseUrl(url);
+      setLoading(false);
+    }
+  }, [audioResponse]);
 
   useEffect(() => {
     startAudioGeneration();
   }, [yodaResponseText]);
 
-  useEffect(() => {
-    if (requestId) {
-      pollStatus(requestId);
-    }
-  }, [requestId]);
+  // useEffect(() => {
+  //   if (requestId) {
+  //     pollStatus(requestId);
+  //   }
+  // }, [requestId]);
 
-  console.log(requestId);
+  console.log(audioResponse);
+  console.log(audioResponseUrl);
 
   return (
     <Box display="flex" alignItems="center" mt={2} color={"white"}>
@@ -105,10 +133,13 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
       </Typography>
       {loading ? (
         <p>Loading audio....</p>
-      ) : ( 
-        <audio controls>
-          <source src={audioUrl} type="audio/mpeg" />
-        </audio>
+      ) : (
+        audioResponseUrl && (
+          <audio controls style={{ display: "block", width: "100%", height: "40px" }}>
+            <source src="https://peregrine-results.s3.amazonaws.com/pigeon/OAQgKjtsODhHZDId8x_0.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        )
       )}
     </Box>
   );
