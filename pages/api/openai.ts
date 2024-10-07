@@ -24,7 +24,7 @@ const handler = async (
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-4o",
-        max_tokens: 200,
+        max_tokens: 100,
         temperature: 0.5,
         messages: [
           {
