@@ -21,10 +21,10 @@ const HomePage: React.FC = () => {
     <Layout>
       <main className="main">
         <Stack
-          display={"flex"}
-          alignItems={"center"}
+          display="flex"
+          alignItems="center"
+          margin="0 auto"
           maxWidth={1000}
-          mx={15}
           zIndex={2}
           sx={{
             backgroundImage: "url(/images/dagobah.jpeg)",

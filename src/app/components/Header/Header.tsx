@@ -3,8 +3,16 @@ import { Box, Typography } from "@mui/material";
 const Header: React.FC = () => {
   return (
     <>
-      <Typography variant="h1" color="secondary" sx={{ textTransform: "none", backgroundColor: "rgba(0, 0, 0, 0.5)", padding: "1.5rem", borderRadius: "2rem" }}>
-        You WANT To ASK&#8200;, WHAT Do?
+      <Typography
+        variant="h1"
+        sx={{
+          textTransform: "none",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          padding: "1.25rem 2.5rem",
+          borderRadius: "2rem",
+        }}
+      >
+        want to ask&#8202;, what do you?
       </Typography>
       {/* <Box
         component="img"

@@ -50,8 +50,8 @@ const Form: React.FC<FormProps> = ({ onReceiveResponse }) => {
         color="white"
       >
         <StyledTextArea
-          minRows={3}
-          maxRows={3}
+          minRows={5}
+          maxRows={5}
           placeholder="Your question here, please type..."
           value={formText}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -63,12 +63,11 @@ const Form: React.FC<FormProps> = ({ onReceiveResponse }) => {
           variant="contained"
           color="primary"
           endIcon={<QuestionAnswerOutlinedIcon />}
-          sx={{ textTransform: "none", width: "30rem" }}
+          sx={{ textTransform: "none", width: "28rem" }}
         >
-          ASK YoDA
+          ask yoda{" "}
         </Button>
       </Box>
-      {/* {response && <Response response={response} />} */}
     </Box>
   );
 };

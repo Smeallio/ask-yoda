@@ -20,30 +20,40 @@ const starJediHol = localFont({
   ],
 });
 
-const theme = createTheme({
+// const textLight = "#FFF";
+// const textDark = "#000";
+
+let theme = createTheme({
   palette: {
     primary: {
       main: "#ABC178",
     },
     secondary: {
-      main: "#FFF",
+      main: "#71E03B",
+    },
+    text: {
+      light: "#FFF",
+      dark: "#000",
     },
   },
+});
+
+theme = createTheme(theme, {
   typography: {
     h1: {
       fontFamily: starJedi.style.fontFamily,
       fontSize: "3rem",
-      color: "#FFF",
+      color: theme.palette.text.light,
       textAlign: "center",
       lineHeight: "3.5rem",
     },
     body1: {
       fontFamily: starJedi.style.fontFamily,
       fontSize: "1rem",
-      color: "#FFF",
+      color: theme.palette.text.light,
       textAlign: "center",
       textTransform: "lowercase",
-    }
+    },
   },
   components: {
     MuiButton: {
@@ -53,7 +63,7 @@ const theme = createTheme({
           fontSize: "1.25rem",
           width: "15rem",
           "&:hover": {
-            color: "white",
+            color: theme.palette.text.light,
           },
         },
       },
@@ -61,14 +71,20 @@ const theme = createTheme({
   },
 });
 
-// Can the below be added into the above? 
+// Can the below be added into the above?
 
 export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
   fontSize: "1.125rem",
-  width: "30rem",
+  width: "27rem",
   margin: "1.5rem",
   padding: "0.5rem",
   borderRadius: "0.5rem",
+
+  "&:focus": {
+    outline: "none",
+    borderColor: theme.palette.secondary.main,
+    boxShadow: `0 0 1.5rem 0.5rem ${theme.palette.secondary.main}`,
+  },
 }));
 
 export default theme;
