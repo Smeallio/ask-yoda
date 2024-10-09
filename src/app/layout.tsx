@@ -28,22 +28,26 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <ThemeProvider theme={theme}>
           <Box
             component={"section"}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
             sx={{
-              minHeight: "100vh",
-              minWidth: "100vw",
+              // minHeight: "100vh",
+              // minWidth: "100vw",
               // display: "flex",
               // justifyContent: "center",
               // alignItems: "center",
-              position: "absolute",
-              top: 0,
-              left: 0,
+              // position: "absolute",
+              // top: 0,
+              // left: 0,
               width: "100%",
-              backgroundImage: "url(/images/dagobah.jpeg)",
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-              backgroundRepeat: "no-repeat",
+              height: "100vh",
+              // backgroundImage: "url(/images/dagobah.jpeg)",
+              // backgroundSize: "cover",
+              // backgroundPosition: "center center",
+              // backgroundRepeat: "no-repeat",
               backgroundColor: "rgba(0, 0, 0, 0.25)",
-              backgroundBlendMode: "multiply",
+              // backgroundBlendMode: "multiply",
             }}
           >
             <Container maxWidth={false}>{children}</Container>

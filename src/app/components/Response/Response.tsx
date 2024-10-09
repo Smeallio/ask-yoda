@@ -85,7 +85,7 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
         alt="YODA"
         position="relative"
         bottom="0"
-        width="50%"
+        width="35%"
         height="auto"
         mt={2}
         mr={4}

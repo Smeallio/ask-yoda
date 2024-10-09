@@ -18,20 +18,36 @@ const HomePage: React.FC = () => {
   console.log(responseData);
 
   return (
-      <Layout>
-        <main className="main">
-          <Stack
-            display={"flex"}
-            alignItems={"center"}
-            maxWidth={600}
-            zIndex={2}
-          >
-            <Header />
-            <Form onReceiveResponse={handleResponse} />
-            {responseData && <Response yodaResponseText={responseData} />}
-          </Stack>
-        </main>
-      </Layout>
+    <Layout>
+      <main className="main">
+        <Stack
+          display={"flex"}
+          alignItems={"center"}
+          maxWidth={1000}
+          mx={15}
+          zIndex={2}
+          sx={{
+            backgroundImage: "url(/images/dagobah.jpeg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            border: 3,
+            borderColor: "white",
+            borderRadius: "5rem",
+            padding: "3rem 5rem 0",
+          }}
+        >
+          {!responseData ? (
+            <>
+              <Header />
+              <Form onReceiveResponse={handleResponse} />
+            </>
+          ) : (
+            <Response yodaResponseText={responseData} />
+          )}
+        </Stack>
+      </main>
+    </Layout>
   );
 };
 

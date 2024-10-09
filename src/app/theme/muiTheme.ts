@@ -64,7 +64,8 @@ const theme = createTheme({
 // Can the below be added into the above? 
 
 export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
-  width: "25rem",
+  fontSize: "1.125rem",
+  width: "30rem",
   margin: "1.5rem",
   padding: "0.5rem",
   borderRadius: "0.5rem",
