@@ -1,8 +1,9 @@
 module.exports = {
     parser: '@babel/eslint-parser',
-    extends: ['next', 'next/core-web-vitals'],
+    extends: ['next/babel','next/core-web-vitals'],
     parserOptions: {
       requireConfigFile: false,
+      ecmaVersion: 2020,
       babelOptions: {
         presets: ['next/babel'],
       },

@@ -1,4 +1,4 @@
-export const nextConfig = {
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   webpack: (config, { dev, isServer }) => {
@@ -11,15 +11,6 @@ export const nextConfig = {
 
     return config;
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*', 
-        destination: 'https://api.funtranslations.com/translate/yoda.json?path=:path*',
-      },
-    ];
-  },
 };
 
 export default nextConfig;
-
