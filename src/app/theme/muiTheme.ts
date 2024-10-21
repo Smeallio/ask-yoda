@@ -1,7 +1,7 @@
 "use client";
 
 import { createTheme, styled } from "@mui/material/styles";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { Skeleton, TextareaAutosize } from "@mui/material";
 import localFont from "next/font/local";
 
 const starJedi = localFont({
@@ -31,10 +31,6 @@ let theme = createTheme({
     secondary: {
       main: "#71E03B",
     },
-    text: {
-      light: "#FFF",
-      dark: "#000",
-    },
   },
 });
 
@@ -43,14 +39,14 @@ theme = createTheme(theme, {
     h1: {
       fontFamily: starJedi.style.fontFamily,
       fontSize: "3rem",
-      color: theme.palette.text.light,
+      color: "#FFF",
       textAlign: "center",
       lineHeight: "3.5rem",
     },
     body1: {
       fontFamily: starJedi.style.fontFamily,
       fontSize: "1rem",
-      color: theme.palette.text.light,
+      color: "#FFF",
       textAlign: "center",
       textTransform: "lowercase",
     },
@@ -63,7 +59,7 @@ theme = createTheme(theme, {
           fontSize: "1.25rem",
           width: "15rem",
           "&:hover": {
-            color: theme.palette.text.light,
+            color: "#FFF",
           },
         },
       },
@@ -85,6 +81,12 @@ export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
     borderColor: theme.palette.secondary.main,
     boxShadow: `0 0 1.5rem 0.5rem ${theme.palette.secondary.main}`,
   },
+}));
+
+export const StyledLoadingSkeleton = styled(Skeleton)(({ theme }) => ({
+  bgColor: theme.palette.secondary.main,
+  borderRadius: "0.5rem",
+  animation: "pulse 2s infinite",
 }));
 
 export default theme;

@@ -1,3 +1,5 @@
 export interface ResponseProps {
-    yodaResponseText: string;
-  }
+  yodaResponseText: string;
+  setResponseData: (value: string | null) => void;
+  setLoading: (value: boolean) => void;
+}

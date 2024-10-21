@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { ResponseProps } from "@/app/interfaces/ResponseProps";
 import axios from "axios";
 
-const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
+const Response: React.FC<ResponseProps> = ({
+  yodaResponseText,
+  setResponseData,
+  setLoading,
+}) => {
   const [audioResponse, setAudioResponse] = useState<string | undefined>(
     undefined
   );
-  const [loading, setLoading] = useState<boolean>(true);
   const [requestId, setRequestId] = useState<string | null>(null);
   const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>(null);
 
@@ -78,61 +81,52 @@ const Response: React.FC<ResponseProps> = ({ yodaResponseText }) => {
   console.log(audioResponseUrl);
 
   return (
-    <Box display="flex" alignItems="center" mt={2} color={"white"}>
-      <Box
-        component="img"
-        src="../images/yoda-glow.png"
-        alt="YODA"
-        position="relative"
-        bottom="0"
-        width="35%"
-        height="auto"
-        mt={2}
-        mr={4}
-        flexShrink={0}
-      />
-      <Box display="flex" flexDirection="column">
-        <Typography
-          variant="body1"
-          sx={{
-            backgroundColor: "white",
-            color: "black",
-            padding: "1rem",
-            borderRadius: "10px",
-            display: "inline-block",
-            position: "relative",
-            "&::after": {
-              content: '""',
-              position: "absolute",
-              left: 0,
-              top: "25%",
-              width: 0,
-              height: 0,
-              border: "3rem solid transparent",
-              borderRightColor: "white",
-              borderTopLeftRadius: "15%",
-              borderLeft: 0,
-              borderTop: 0,
-              marginTop: 0,
-              marginLeft: "-3rem",
-            },
-          }}
-        >
-          {yodaResponseText}
-        </Typography>
-        <Box mt={4}>
-          {loading ? (
-            <p>Loading audio....</p>
-          ) : (
-            audioResponseUrl && (
-              <audio controls style={{ width: "100%", height: "40px" }}>
-                <source src={audioResponseUrl} type="audio/mpeg" />
-                Your browser does not support the audio element.
-              </audio>
-            )
-          )}
-        </Box>
+    <Box display="flex" flexDirection="column">
+      <Typography
+        variant="body1"
+        sx={{
+          backgroundColor: "white",
+          color: "black",
+          padding: "1rem",
+          borderRadius: "0.5rem",
+          display: "inline-block",
+          position: "relative",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            left: 0,
+            top: "25%",
+            width: 0,
+            height: 0,
+            border: "3rem solid transparent",
+            borderRightColor: "white",
+            borderTopLeftRadius: "15%",
+            borderLeft: 0,
+            borderTop: 0,
+            marginTop: 0,
+            marginLeft: "-3rem",
+          },
+        }}
+      >
+        {yodaResponseText}
+      </Typography>
+      <Box my={4}>
+        {audioResponseUrl && (
+          <audio controls style={{ width: "100%", height: "40px" }}>
+            <source src={audioResponseUrl} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        )}
       </Box>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        sx={{ textTransform: "none", width: "32rem" }}
+        onClick={() => setResponseData(null)}
+      >
+        ask another question{" "}
+      </Button>
     </Box>
   );
 };
