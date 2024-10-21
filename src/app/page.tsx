@@ -1,20 +1,17 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Layout from "./layout";
 import Form from "./components/Form/Form";
-import LoadingSkeleton from "./components/LoadingSkeleton/LoadingSkeleton";
 import Response from "./components/Response/Response";
 import "./globals.scss";
 
 const HomePage: React.FC = () => {
   const [responseData, setResponseData] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const handleResponse = (data: string) => {
     setResponseData(data);
-    setLoading(true);
   };
 
   console.log(responseData);
@@ -56,7 +53,6 @@ const HomePage: React.FC = () => {
               src="../images/yoda-glow.png"
               alt="YODA"
               position="relative"
-              bottom="0"
               width="35%"
               height="auto"
               mt={2}
@@ -65,13 +61,10 @@ const HomePage: React.FC = () => {
             />
             {!responseData ? (
               <Form onReceiveResponse={handleResponse} />
-            ) : loading ? (
-              <LoadingSkeleton />
             ) : (
               <Response
                 yodaResponseText={responseData}
                 setResponseData={setResponseData}
-                setLoading={setLoading}
               />
             )}
           </Box>

@@ -2,6 +2,7 @@
 
 import { createTheme, styled } from "@mui/material/styles";
 import { Skeleton, TextareaAutosize } from "@mui/material";
+import { keyframes } from "@mui/system";
 import localFont from "next/font/local";
 
 const starJedi = localFont({
@@ -83,10 +84,22 @@ export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
   },
 }));
 
+const pulse = keyframes`
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 export const StyledLoadingSkeleton = styled(Skeleton)(({ theme }) => ({
-  bgColor: theme.palette.secondary.main,
+  backgroundColor: theme.palette.secondary.main,
   borderRadius: "0.5rem",
-  animation: "pulse 2s infinite",
+  animation: `${pulse} 2s infinite`,
 }));
 
 export default theme;
