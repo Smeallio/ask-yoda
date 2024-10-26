@@ -4,30 +4,15 @@ import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { StyledTextArea } from "@/app/theme/muiTheme";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 import { FormProps } from "@/app/interfaces/FormProps";
-import axios from "axios";
 
-const Form: React.FC<FormProps> = ({ onReceiveResponse }) => {
+const Form: React.FC<FormProps> = ({ onFormSubmit }) => {
   const [formText, setFormText] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
-    try {
-      const res = await axios.post("/api/openai", { prompt: formText });
-      onReceiveResponse(res.data.result);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error: ", error.response?.data);
-      } else {
-        console.error("Unexpected error: ", error);
-      }
-    }
+    onFormSubmit(formText);
   };
-
-  // console.log(response);
 
   return (
     <Box
@@ -39,30 +24,24 @@ const Form: React.FC<FormProps> = ({ onReceiveResponse }) => {
       mt={2}
       color="white"
     >
-      {loading ? (
-        <LoadingSkeleton />
-      ) : (
-        <>
-          <StyledTextArea
-            minRows={5}
-            maxRows={5}
-            placeholder="Your question here, please type..."
-            value={formText}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setFormText(e.target.value)
-            }
-          ></StyledTextArea>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            endIcon={<QuestionAnswerOutlinedIcon />}
-            sx={{ textTransform: "none", width: "28rem" }}
-          >
-            ask yoda{" "}
-          </Button>
-        </>
-      )}
+      <StyledTextArea
+        minRows={5}
+        maxRows={5}
+        placeholder="Your question here, please type..."
+        value={formText}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+          setFormText(e.target.value)
+        }
+      ></StyledTextArea>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        endIcon={<QuestionAnswerOutlinedIcon />}
+        sx={{ textTransform: "none", width: "28rem" }}
+      >
+        ask yoda{" "}
+      </Button>
     </Box>
   );
 };

@@ -5,17 +5,67 @@ import { Box, Stack, Typography } from "@mui/material";
 import Layout from "./layout";
 import Form from "./components/Form/Form";
 import Response from "./components/Response/Response";
+import LoadingSkeleton from "./components/LoadingSkeleton/LoadingSkeleton";
+import axios from "axios";
 import "./globals.scss";
 
 const HomePage: React.FC = () => {
   const [responseData, setResponseData] = useState<string | null>(null);
+  const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleResponse = (data: string) => {
-    console.log("Data received:", data);
-    setResponseData(data);
+  const handleFormSubmit = async (prompt: string) => {
+    setLoading(true);
+    try {
+      // First API call to OpenAI
+      const openAiResponse = await axios.post("/api/openai", { prompt });
+      const yodaResponseText = openAiResponse.data.result;
+      setResponseData(yodaResponseText);
+
+      // Second API call to PlayHT
+      const playHtResponse = await axios.post("/api/playht", {
+        text: yodaResponseText,
+        voice:
+          "s3://voice-cloning-zero-shot/565f48a1-c14b-4d9a-85c3-1fa33f337afe/original/manifest.json",
+        output_format: "mp3",
+        voice_engine: "PlayHT2.0",
+        speed: 0.8,
+      });
+
+      // Extracting URL from PlayHT response
+      console.log(playHtResponse.data);
+      const audioUrl = getUrlFromResponse(playHtResponse.data);
+      setAudioResponseUrl(audioUrl);
+    } catch (error) {
+      console.error("Error during API calls:", error);
+    } finally {
+      setLoading(false); // End loading after both API calls are complete
+    }
   };
 
-  console.log(responseData); //REMOVE ME
+  const getUrlFromResponse = (response: string): string | null => {
+    try {
+      const lines = response.split("\n");
+      for (const line of lines) {
+        if (line.startsWith("data:")) {
+          const trimmedLine = line.replace("data: ", "");
+          const data = JSON.parse(trimmedLine);
+          if (data.stage === "complete") {
+            return data.url;
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error parsing response:", error);
+    }
+    return null;
+  };
+
+  // const handleResponse = (data: string) => {
+  //   setResponseData(data);
+  // };
+
+  console.log(responseData);
 
   return (
     <Layout>
@@ -60,12 +110,18 @@ const HomePage: React.FC = () => {
               mr={4}
               flexShrink={0}
             />
-            {!responseData ? (
-              <Form onReceiveResponse={handleResponse} />
+            {loading ? (
+              <LoadingSkeleton />
+            ) : !responseData ? (
+              <Form onFormSubmit={handleFormSubmit} />
             ) : (
               <Response
                 yodaResponseText={responseData}
-                setResponseData={setResponseData}
+                audioResponseUrl={audioResponseUrl}
+                resetData={() => {
+                  setResponseData(null);
+                  setAudioResponseUrl(null);
+                }}
               />
             )}
           </Box>
