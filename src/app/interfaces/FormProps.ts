@@ -1,3 +1,3 @@
 export interface FormProps {
-    onReceiveResponse: (data: string) => void;
-  }
+  onReceiveResponse: (data: string) => void;
+}

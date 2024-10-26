@@ -11,10 +11,11 @@ const HomePage: React.FC = () => {
   const [responseData, setResponseData] = useState<string | null>(null);
 
   const handleResponse = (data: string) => {
+    console.log("Data received:", data);
     setResponseData(data);
   };
 
-  console.log(responseData);
+  console.log(responseData); //REMOVE ME
 
   return (
     <Layout>

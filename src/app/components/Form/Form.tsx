@@ -4,14 +4,17 @@ import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { StyledTextArea } from "@/app/theme/muiTheme";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
+import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 import { FormProps } from "@/app/interfaces/FormProps";
 import axios from "axios";
 
 const Form: React.FC<FormProps> = ({ onReceiveResponse }) => {
   const [formText, setFormText] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post("/api/openai", { prompt: formText });
       onReceiveResponse(res.data.result);
@@ -36,24 +39,30 @@ const Form: React.FC<FormProps> = ({ onReceiveResponse }) => {
       mt={2}
       color="white"
     >
-      <StyledTextArea
-        minRows={5}
-        maxRows={5}
-        placeholder="Your question here, please type..."
-        value={formText}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-          setFormText(e.target.value)
-        }
-      ></StyledTextArea>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        endIcon={<QuestionAnswerOutlinedIcon />}
-        sx={{ textTransform: "none", width: "28rem" }}
-      >
-        ask yoda{" "}
-      </Button>
+      {loading ? (
+        <LoadingSkeleton />
+      ) : (
+        <>
+          <StyledTextArea
+            minRows={5}
+            maxRows={5}
+            placeholder="Your question here, please type..."
+            value={formText}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setFormText(e.target.value)
+            }
+          ></StyledTextArea>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            endIcon={<QuestionAnswerOutlinedIcon />}
+            sx={{ textTransform: "none", width: "28rem" }}
+          >
+            ask yoda{" "}
+          </Button>
+        </>
+      )}
     </Box>
   );
 };

@@ -11,15 +11,15 @@ const Response: React.FC<ResponseProps> = ({
   const [audioResponse, setAudioResponse] = useState<string | undefined>(
     undefined
   );
-  const [loading, setLoading] = useState<boolean>(true);
-  // const [requestId, setRequestId] = useState<string | null>(null);
   const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const startAudioGeneration = async () => {
+  const startAudioGeneration = async (text: string) => {
     try {
       setLoading(true);
+      console.log("Starting audio generation...");
       const { data } = await axios.post("/api/playht", {
-        text: yodaResponseText,
+        text,
         voice:
           "s3://voice-cloning-zero-shot/565f48a1-c14b-4d9a-85c3-1fa33f337afe/original/manifest.json",
         output_format: "mp3",
@@ -62,7 +62,9 @@ const Response: React.FC<ResponseProps> = ({
   };
 
   useEffect(() => {
-    startAudioGeneration();
+    if (yodaResponseText) {
+      startAudioGeneration(yodaResponseText);
+    }
   }, [yodaResponseText]);
 
   useEffect(() => {
@@ -78,8 +80,10 @@ const Response: React.FC<ResponseProps> = ({
     }
   }, [audioResponseUrl]);
 
+  console.log("Yoda Response Text: ", yodaResponseText);
   console.log(audioResponse);
   console.log(audioResponseUrl);
+  console.log("hello");
 
   return (
     <Box display="flex" flexDirection="column" sx={{ maxWidth: "30rem" }}>
