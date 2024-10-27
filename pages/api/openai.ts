@@ -18,13 +18,13 @@ const handler = async (
   }
 
   try {
-    console.log("Sending request to Open API with prompt: ", prompt)
+    console.log("Sending request to Open API with prompt: ", prompt);
 
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-4o",
-        max_tokens: 100,
+        max_tokens: 75,
         temperature: 0.5,
         messages: [
           {
@@ -50,7 +50,9 @@ const handler = async (
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Axios error response: ", error.response?.data);
-      res.status(error.response?.status || 500).json({ error: error.response?.data || "An unknown error occurred" });
+      res
+        .status(error.response?.status || 500)
+        .json({ error: error.response?.data || "An unknown error occurred" });
     } else {
       console.error("Unexpected error: ", error);
       res.status(500).json({ error: "An unknown error occurred" });

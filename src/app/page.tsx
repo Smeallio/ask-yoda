@@ -10,9 +10,10 @@ import axios from "axios";
 import "./globals.scss";
 
 const HomePage: React.FC = () => {
-  const [responseData, setResponseData] = useState<string | null>(null);
-  const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [responseData, setResponseData] = useState<string>("");
+  const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>("");
+  const [showTextOnly, setShowTextOnly] = useState<boolean>(false);
 
   const handleFormSubmit = async (prompt: string) => {
     setLoading(true);
@@ -36,6 +37,13 @@ const HomePage: React.FC = () => {
       console.log(playHtResponse.data);
       const audioUrl = getUrlFromResponse(playHtResponse.data);
       setAudioResponseUrl(audioUrl);
+
+      // // Start a timeout to display text only if audio is delayed
+      // setTimeout(() => {
+      //   if (!audioResponseUrl) {
+      //     setShowTextOnly(true);
+      //   }
+      // }, 30000); // 30-second delay before showing text-only fallback
     } catch (error) {
       console.error("Error during API calls:", error);
     } finally {
@@ -47,10 +55,17 @@ const HomePage: React.FC = () => {
     try {
       const lines = response.split("\n");
       for (const line of lines) {
+        // Process only lines with "data: "
         if (line.startsWith("data:")) {
-          const trimmedLine = line.replace("data: ", "");
+          const trimmedLine = line.replace("data: ", "").trim();
+
+          // Skip if trimmedLine is not valid JSON (e.g., ping events)
+          if (!trimmedLine.startsWith("{")) continue;
+
           const data = JSON.parse(trimmedLine);
-          if (data.stage === "complete") {
+          console.log(data);
+          // Check for stage "complete" and return the URL
+          if (data.stage === "complete" && data.url) {
             return data.url;
           }
         }
@@ -61,11 +76,9 @@ const HomePage: React.FC = () => {
     return null;
   };
 
-  // const handleResponse = (data: string) => {
-  //   setResponseData(data);
-  // };
-
   console.log(responseData);
+  console.log(audioResponseUrl);
+  console.log(showTextOnly);
 
   return (
     <Layout>
@@ -112,17 +125,18 @@ const HomePage: React.FC = () => {
             />
             {loading ? (
               <LoadingSkeleton />
-            ) : !responseData ? (
-              <Form onFormSubmit={handleFormSubmit} />
-            ) : (
+            ) : responseData ? (
               <Response
                 yodaResponseText={responseData}
-                audioResponseUrl={audioResponseUrl}
+                audioResponseUrl={showTextOnly ? null : audioResponseUrl}
                 resetData={() => {
-                  setResponseData(null);
+                  setResponseData("");
                   setAudioResponseUrl(null);
+                  setShowTextOnly(false);
                 }}
               />
+            ) : (
+              <Form onFormSubmit={handleFormSubmit} />
             )}
           </Box>
         </Stack>

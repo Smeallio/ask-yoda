@@ -1,5 +1,5 @@
 export interface ResponseProps {
-  yodaResponseText: string;
+  yodaResponseText: string | null;
   audioResponseUrl: string | null;
   resetData: () => void;
 }
