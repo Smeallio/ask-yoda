@@ -1,8 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
 import { ResponseProps } from "@/app/interfaces/ResponseProps";
+import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 
 const Response: React.FC<ResponseProps> = ({
   yodaResponseText,
+  audioLoading,
   audioResponseUrl,
   resetData,
 }) => {
@@ -21,29 +23,37 @@ const Response: React.FC<ResponseProps> = ({
             content: '""',
             position: "absolute",
             left: 0,
-            top: "25%",
+            bottom: "25%",
             width: 0,
             height: 0,
             border: "3rem solid transparent",
             borderRightColor: "white",
-            borderTopLeftRadius: "15%",
+            borderBottomLeftRadius: "10%",
             borderLeft: 0,
-            borderTop: 0,
-            marginTop: 0,
+            borderBottom: 0,
+            marginTop: "-2rem",
             marginLeft: "-3rem",
           },
         }}
       >
         {yodaResponseText}
       </Typography>
-      <Box my={4}>
-        {audioResponseUrl && (
-          <audio controls style={{ width: "100%", height: "40px" }}>
-            <source src={audioResponseUrl} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-        )}
-      </Box>
+      {audioLoading ? (
+        <LoadingSkeleton
+          width="30rem"
+          height="5rem"
+          message="Yoda will speak soon..."
+        />
+      ) : (
+        <Box my={4}>
+          {audioResponseUrl && (
+            <audio controls style={{ width: "100%", height: "40px" }}>
+              <source src={audioResponseUrl} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          )}
+        </Box>
+      )}
       <Button
         type="submit"
         variant="contained"

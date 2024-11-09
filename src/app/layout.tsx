@@ -24,10 +24,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
+      <body style={{ margin: 0 }}>
         <ThemeProvider theme={theme}>
           <Box
             component={"section"}
+            className="test"
             display="flex"
             justifyContent="center"
             alignItems="center"
@@ -42,6 +43,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               // left: 0,
               width: "100%",
               height: "100vh",
+              // maxHeight: "100vh",
               // backgroundImage: "url(/images/dagobah.jpeg)",
               // backgroundSize: "cover",
               // backgroundPosition: "center center",

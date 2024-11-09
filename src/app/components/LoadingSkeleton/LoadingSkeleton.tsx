@@ -1,9 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import { StyledLoadingSkeleton } from "@/app/theme/muiTheme";
+import { LoadingSkeletonProps } from "@/app/interfaces/LoadingSkeletonProps";
 
-const LoadingSkeleton: React.FC = () => {
+const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
+  width,
+  height,
+  message,
+}) => {
   return (
-    <Box position="relative" width="30rem" height="15rem">
+    <Box position="relative" width={width} height={height} margin="2rem 0">
       <StyledLoadingSkeleton variant="rectangular" height="100%" width="100%" />
       <Typography
         variant="body1"
@@ -15,7 +20,7 @@ const LoadingSkeleton: React.FC = () => {
           textAlign: "center",
         }}
       >
-        Yoda is thinking...
+        {message}
       </Typography>
     </Box>
   );
