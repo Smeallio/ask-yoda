@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Form from "./components/Form/Form";
 import Response from "./components/Response/Response";
 import LoadingSkeleton from "./components/LoadingSkeleton/LoadingSkeleton";
 import axios from "axios";
+import Cookies from "js-cookie";
 import "./globals.scss";
 
 const HomePage: React.FC = () => {
@@ -15,15 +16,49 @@ const HomePage: React.FC = () => {
   const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>("");
   const [showTextOnly, setShowTextOnly] = useState<boolean>(false);
 
+  useEffect(() => {
+    // Check if the cookie is already set; if not, initialize it to 0
+    if (!Cookies.get("question_count")) {
+      Cookies.set("question_count", "0", { expires: 1 }); // Initialize to 0
+    }
+  }, []);
+
   const handleFormSubmit = async (prompt: string) => {
+    const questionCount = parseInt(Cookies.get("question_count") || "0", 10);
+
+    console.log("Question count: ", questionCount);
+
+    if (questionCount >= 3) {
+      setResponseData(
+        "Nosy, you are. Many questions, you ask. Old and weary, Yoda grows. Answer more, I will, tomorrow perhaps."
+      );
+      setAudioResponseUrl(
+        "https://peregrine-results.s3.amazonaws.com/pigeon/E9i8Ylue3gHZ5Yd3Em_0.mp3"
+      );
+      return;
+    }
+
     setTextLoading(true);
     try {
+      // Increment question count and set it in the cookie with 24-hour expiration
+      const newQuestionCount = questionCount + 1;
+      Cookies.set("question_count", newQuestionCount.toString(), {
+        expires: 1, // 1 day
+      });
+      console.log("Cookie set:", Cookies.get("question_count")); // Check cookie value
+
       // First API call to OpenAI
       const openAiResponse = await axios.post("/api/openai", { prompt });
       const yodaResponseText = openAiResponse.data.result;
       setResponseData(yodaResponseText);
       setTextLoading(false);
       setAudioLoading(true);
+
+      // Start a timeout to display text only if audio is delayed
+      const timeoutId = setTimeout(() => {
+        setShowTextOnly(true);
+        console.log("Time out started: ", timeoutId);
+      }, 30000); // 30-second delay before showing text-only fallback
 
       // Second API call to PlayHT
       const playHtResponse = await axios.post("/api/playht", {
@@ -41,12 +76,12 @@ const HomePage: React.FC = () => {
       setAudioResponseUrl(audioUrl);
       setAudioLoading(false);
 
-      // // Start a timeout to display text only if audio is delayed
-      // setTimeout(() => {
-      //   if (!audioResponseUrl) {
-      //     setShowTextOnly(true);
-      //   }
-      // }, 30000); // 30-second delay before showing text-only fallback
+      // Clear the timeout if the audio URL is received before 30 seconds
+      if (audioUrl) {
+        clearTimeout(timeoutId);
+        setShowTextOnly(false); // Reset the text-only flag if audio URL arrives
+        console.log("Time out cleared: ", timeoutId);
+      }
     } catch (error) {
       console.error("Error during API calls:", error);
     }
