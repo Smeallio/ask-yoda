@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import Form from "./components/Form/Form";
 import Response from "./components/Response/Response";
 import LoadingSkeleton from "./components/LoadingSkeleton/LoadingSkeleton";
@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
           border: 3,
           borderColor: "white",
           borderRadius: "5rem",
-          padding: "3rem 5rem 0",
+          padding: { xs: "2rem 2rem 0", md: "3rem 5rem 0" },
         }}
       >
         <Typography
@@ -146,39 +146,54 @@ const HomePage: React.FC = () => {
         >
           want to ask&#8202;, what do you?
         </Typography>
-        <Box display="flex" alignItems="center" sx={{ width: "80%" }}>
-          <Box
-            component="img"
-            src="../images/yoda-glow.png"
-            alt="YODA"
-            position="relative"
-            width="35%"
-            height="auto"
-            mt={2}
-            mr={4}
-            flexShrink={0}
-          />
-          {textLoading ? (
-            <LoadingSkeleton
-              width="30rem"
-              height="15rem"
-              message="Yoda is thinking..."
+        <Grid
+          container
+          direction={{ xs: "column-reverse", md: "row" }}
+          wrap="nowrap"
+          alignItems="center"
+          width={{ xs: "100%", md: "80%" }}
+        >
+          <Grid
+            item
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-end"
+            width={{ xs: "80%", md: "40%" }}
+          >
+            <Box
+              component="img"
+              src="../images/yoda-glow.png"
+              alt="YODA"
+              position="relative"
+              maxHeight={{ xs: "20rem", md: "25rem" }}
+              mt={{ xs: 0, md: 2 }}
+              mr={{ xs: 0, md: 4 }}
+              flexShrink={0}
             />
-          ) : responseData ? (
-            <Response
-              yodaResponseText={responseData}
-              audioLoading={audioLoading}
-              audioResponseUrl={showTextOnly ? null : audioResponseUrl}
-              resetData={() => {
-                setResponseData("");
-                setAudioResponseUrl(null);
-                setShowTextOnly(false);
-              }}
-            />
-          ) : (
-            <Form onFormSubmit={handleFormSubmit} />
-          )}
-        </Box>
+          </Grid>
+          <Grid item width={{ xs: "100%", md: "60%" }}>
+            {textLoading ? (
+              <LoadingSkeleton
+                width="30rem"
+                height="15rem"
+                message="Yoda is thinking..."
+              />
+            ) : responseData ? (
+              <Response
+                yodaResponseText={responseData}
+                audioLoading={audioLoading}
+                audioResponseUrl={showTextOnly ? null : audioResponseUrl}
+                resetData={() => {
+                  setResponseData("");
+                  setAudioResponseUrl(null);
+                  setShowTextOnly(false);
+                }}
+              />
+            ) : (
+              <Form onFormSubmit={handleFormSubmit} />
+            )}
+          </Grid>
+        </Grid>
       </Stack>
     </main>
   );

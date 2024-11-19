@@ -21,7 +21,6 @@ const Form: React.FC<FormProps> = ({ onFormSubmit }) => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      mt={2}
       color="white"
     >
       <StyledTextArea
@@ -38,7 +37,7 @@ const Form: React.FC<FormProps> = ({ onFormSubmit }) => {
         variant="contained"
         color="primary"
         endIcon={<QuestionAnswerOutlinedIcon />}
-        sx={{ textTransform: "none", width: "28rem" }}
+        sx={{ textTransform: "none", width: { xs: "100%", md: "28rem" } }}
       >
         ask yoda{" "}
       </Button>

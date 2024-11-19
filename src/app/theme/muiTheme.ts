@@ -42,7 +42,11 @@ theme = createTheme(theme, {
       fontSize: "3rem",
       color: "#FFF",
       textAlign: "center",
-      lineHeight: "3.5rem",
+      lineHeight: "3.75rem",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "1.75rem",
+        lineHeight: "2.25rem",
+      },
     },
     body1: {
       fontFamily: starJedi.style.fontFamily,
@@ -62,6 +66,9 @@ theme = createTheme(theme, {
           "&:hover": {
             color: "#FFF",
           },
+          [theme.breakpoints.down("md")]: {
+            width: "100%",
+          },
         },
       },
     },
@@ -71,16 +78,21 @@ theme = createTheme(theme, {
 // Can the below be added into the above?
 
 export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
+  boxSizing: "border-box",
   fontSize: "1.125rem",
   width: "27rem",
   margin: "1.5rem",
   padding: "0.5rem",
   borderRadius: "0.5rem",
-
   "&:focus": {
     outline: "none",
     borderColor: theme.palette.secondary.main,
     boxShadow: `0 0 1.5rem 0.5rem ${theme.palette.secondary.main}`,
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "0.9325rem",
+    width: "100%",
+    margin: "1.5rem 0",
   },
 }));
 
