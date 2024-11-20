@@ -23,6 +23,7 @@ const Response: React.FC<ResponseProps> = ({
           borderRadius: "0.5rem",
           display: "inline-block",
           position: "relative",
+          marginBottom: "2rem",
           "&::after": {
             content: '""',
             position: "absolute",

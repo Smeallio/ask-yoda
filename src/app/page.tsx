@@ -152,6 +152,7 @@ const HomePage: React.FC = () => {
           wrap="nowrap"
           alignItems="center"
           width={{ xs: "100%", md: "80%" }}
+          maxWidth={{ xs: "32rem", md: "none" }}
         >
           <Grid
             item
@@ -166,7 +167,7 @@ const HomePage: React.FC = () => {
               alt="YODA"
               position="relative"
               maxHeight={{ xs: "20rem", md: "25rem" }}
-              mt={{ xs: 6, md: 2 }}
+              mt={2}
               mr={{ xs: 0, md: 4 }}
               flexShrink={0}
             />
