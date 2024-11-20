@@ -166,7 +166,7 @@ const HomePage: React.FC = () => {
               alt="YODA"
               position="relative"
               maxHeight={{ xs: "20rem", md: "25rem" }}
-              mt={{ xs: 0, md: 2 }}
+              mt={{ xs: 6, md: 2 }}
               mr={{ xs: 0, md: 4 }}
               flexShrink={0}
             />

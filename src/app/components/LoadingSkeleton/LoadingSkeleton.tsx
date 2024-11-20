@@ -8,11 +8,16 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   message,
 }) => {
   return (
-    <Box position="relative" width={width} height={height} margin="2rem 0">
+    <Box
+      position="relative"
+      width={{ xs: "100%", md: width }}
+      height={{ xs: "100%", md: height }}
+      margin="2rem 0"
+    >
       <StyledLoadingSkeleton variant="rectangular" height="100%" width="100%" />
       <Typography
         variant="body1"
-        position={"absolute"}
+        position="absolute"
         top="50%"
         left="50%"
         sx={{

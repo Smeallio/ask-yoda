@@ -9,7 +9,11 @@ const Response: React.FC<ResponseProps> = ({
   resetData,
 }) => {
   return (
-    <Box display="flex" flexDirection="column" sx={{ maxWidth: "30rem" }}>
+    <Box
+      display="flex"
+      flexDirection={{ xs: "column-reverse", md: "column" }}
+      sx={{ maxWidth: "30rem" }}
+    >
       <Typography
         variant="body1"
         sx={{
@@ -22,17 +26,20 @@ const Response: React.FC<ResponseProps> = ({
           "&::after": {
             content: '""',
             position: "absolute",
-            left: 0,
-            bottom: "25%",
+            left: { xs: "50%", md: 0 },
+            // top: { xs: 0, md: "50%" },
+            bottom: { xs: 0, md: "auto" },
             width: 0,
             height: 0,
             border: "3rem solid transparent",
-            borderRightColor: "white",
+            borderTopColor: { xs: "white", md: "transparent" },
+            borderRightColor: { xs: "transparent", md: "white" },
             borderBottomLeftRadius: "10%",
             borderLeft: 0,
             borderBottom: 0,
-            marginTop: "-2rem",
-            marginLeft: "-3rem",
+            marginTop: { xs: 0, md: "-2rem" },
+            marginLeft: { xs: 0, md: "-3rem" },
+            marginBottom: { xs: "-3rem", md: 0 },
           },
         }}
       >
@@ -58,7 +65,11 @@ const Response: React.FC<ResponseProps> = ({
         type="submit"
         variant="contained"
         color="primary"
-        sx={{ textTransform: "none", width: "30rem" }}
+        sx={{
+          textTransform: "none",
+          width: "30rem",
+          marginTop: { xs: "2rem", md: 0 },
+        }}
         onClick={resetData}
       >
         ask another question{" "}
