@@ -7,7 +7,6 @@ import Response from "./components/Response/Response";
 import LoadingSkeleton from "./components/LoadingSkeleton/LoadingSkeleton";
 import axios from "axios";
 import Cookies from "js-cookie";
-import "./globals.scss";
 
 const HomePage: React.FC = () => {
   const [textLoading, setTextLoading] = useState<boolean>(false);
@@ -112,10 +111,6 @@ const HomePage: React.FC = () => {
     return null;
   };
 
-  console.log(responseData);
-  console.log(audioResponseUrl);
-  console.log(showTextOnly);
-
   return (
     <main className="main">
       <Stack
@@ -139,7 +134,7 @@ const HomePage: React.FC = () => {
           variant="h1"
           sx={{
             textTransform: "none",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
             padding: "1.25rem 2.5rem",
             borderRadius: "2rem",
           }}
@@ -151,13 +146,14 @@ const HomePage: React.FC = () => {
           direction={{ xs: "column-reverse", md: "row" }}
           wrap="nowrap"
           alignItems="center"
-          width={{ xs: "100%", md: "80%" }}
+          justifyContent="flex-start"
+          width="100%"
           maxWidth={{ xs: "32rem", md: "none" }}
         >
           <Grid
             item
             display="flex"
-            justifyContent="center"
+            justifyContent={{ xs: "center", md: "flex-end" }}
             alignItems="flex-end"
             width={{ xs: "80%", md: "40%" }}
           >
@@ -166,17 +162,22 @@ const HomePage: React.FC = () => {
               src="../images/yoda-glow.png"
               alt="YODA"
               position="relative"
-              maxHeight={{ xs: "20rem", md: "25rem" }}
+              maxHeight={{ xs: "20rem", md: "22.5rem", lg: "25rem" }}
               mt={2}
               mr={{ xs: 0, md: 4 }}
               flexShrink={0}
             />
           </Grid>
-          <Grid item width={{ xs: "100%", md: "60%" }}>
+          <Grid
+            item
+            display="flex"
+            justifyContent="center"
+            width={{ xs: "100%", md: "50%" }}
+          >
             {textLoading ? (
               <LoadingSkeleton
-                width="30rem"
-                height="15rem"
+                width={100}
+                height={10}
                 message="Yoda is thinking..."
               />
             ) : responseData ? (

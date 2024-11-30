@@ -1,5 +1,5 @@
 export interface LoadingSkeletonProps {
-  width?: string | number;
-  height?: string | number;
+  width: number;
+  height: number;
   message?: string;
 }

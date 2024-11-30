@@ -10,9 +10,10 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   return (
     <Box
       position="relative"
-      width={{ xs: "100%", md: width }}
-      height={{ xs: "100%", md: height }}
-      margin="2rem 0"
+      width={{ xs: "80vw", md: `${width}%`, lg: `${width + 400}px` }}
+      height={{ xs: `${height}rem` }}
+      maxWidth={{ xs: "30rem", md: "none" }}
+      margin="2rem auto"
     >
       <StyledLoadingSkeleton variant="rectangular" height="100%" width="100%" />
       <Typography

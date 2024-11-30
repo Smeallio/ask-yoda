@@ -12,7 +12,8 @@ const Response: React.FC<ResponseProps> = ({
     <Box
       display="flex"
       flexDirection={{ xs: "column-reverse", md: "column" }}
-      sx={{ maxWidth: "30rem" }}
+      width="100%"
+      sx={{ maxWidth: { xs: "25rem", sm: "30rem", md: "35rem" } }}
     >
       <Typography
         variant="body1"
@@ -23,12 +24,11 @@ const Response: React.FC<ResponseProps> = ({
           borderRadius: "0.5rem",
           display: "inline-block",
           position: "relative",
-          marginBottom: "2rem",
+          marginBottom: { xs: "2rem", md: 0 },
           "&::after": {
             content: '""',
             position: "absolute",
-            left: { xs: "50%", md: 0 },
-            // top: { xs: 0, md: "50%" },
+            left: { xs: "55%", md: 0 },
             bottom: { xs: 0, md: "auto" },
             width: 0,
             height: 0,
@@ -38,7 +38,7 @@ const Response: React.FC<ResponseProps> = ({
             borderBottomLeftRadius: "10%",
             borderLeft: 0,
             borderBottom: 0,
-            marginTop: { xs: 0, md: "-2rem" },
+            marginTop: { xs: 0, md: "-3rem", lg: "-1.5rem" },
             marginLeft: { xs: 0, md: "-3rem" },
             marginBottom: { xs: "-3rem", md: 0 },
           },
@@ -48,8 +48,8 @@ const Response: React.FC<ResponseProps> = ({
       </Typography>
       {audioLoading ? (
         <LoadingSkeleton
-          width="30rem"
-          height="5rem"
+          width={100}
+          height={5}
           message="Yoda will speak soon..."
         />
       ) : (
@@ -68,7 +68,7 @@ const Response: React.FC<ResponseProps> = ({
         color="primary"
         sx={{
           textTransform: "none",
-          width: "30rem",
+          width: { xs: "100%", sm: "30rem", md: "100%" },
           marginTop: { xs: "2rem", md: 0 },
         }}
         onClick={resetData}

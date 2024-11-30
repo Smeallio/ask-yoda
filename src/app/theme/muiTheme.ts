@@ -13,17 +13,6 @@ const starJedi = localFont({
   ],
 });
 
-const starJediHol = localFont({
-  src: [
-    {
-      path: "../../../public/font/Starjhol.ttf",
-    },
-  ],
-});
-
-// const textLight = "#FFF";
-// const textDark = "#000";
-
 let theme = createTheme({
   palette: {
     primary: {
@@ -43,6 +32,10 @@ theme = createTheme(theme, {
       color: "#FFF",
       textAlign: "center",
       lineHeight: "3.75rem",
+      [theme.breakpoints.down("lg")]: {
+        fontSize: "2.25rem",
+        lineHeight: "2.75rem",
+      },
       [theme.breakpoints.down("md")]: {
         fontSize: "1.75rem",
         lineHeight: "2.25rem",
@@ -80,8 +73,8 @@ theme = createTheme(theme, {
 export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
   boxSizing: "border-box",
   fontSize: "1.125rem",
-  width: "27rem",
-  margin: "1.5rem",
+  width: "30rem",
+  margin: "1.5rem 0rem",
   padding: "0.5rem",
   borderRadius: "0.5rem",
   "&:focus": {
@@ -89,10 +82,13 @@ export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
     borderColor: theme.palette.secondary.main,
     boxShadow: `0 0 1.5rem 0.5rem ${theme.palette.secondary.main}`,
   },
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "0.9325rem",
+    width: "25rem",
+  },
   [theme.breakpoints.down("md")]: {
     fontSize: "0.9325rem",
     width: "100%",
-    margin: "1.5rem 0",
   },
 }));
 
