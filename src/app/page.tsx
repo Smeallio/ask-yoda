@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
         "Nosy, you are. Many questions, you ask. Old and weary, Yoda grows. Answer more, I will, tomorrow perhaps."
       );
       setAudioResponseUrl(
-        "https://peregrine-results.s3.amazonaws.com/pigeon/E9i8Ylue3gHZ5Yd3Em_0.mp3"
+        "https://peregrine-results.s3.amazonaws.com/pigeon/Dlvkc2GyztgdhTmtZ2_0.mp3"
       );
       return;
     }
@@ -63,13 +63,13 @@ const HomePage: React.FC = () => {
       const playHtResponse = await axios.post("/api/playht", {
         text: yodaResponseText,
         voice:
-          "s3://voice-cloning-zero-shot/565f48a1-c14b-4d9a-85c3-1fa33f337afe/original/manifest.json",
+          "https://peregrine-results.s3.amazonaws.com/pigeon/Dlvkc2GyztgdhTmtZ2_0.mp3",
         output_format: "mp3",
         voice_engine: "PlayHT2.0",
         speed: 0.8,
       });
 
-      // Extracting URL from PlayHT response
+      // Extract URL from PlayHT response
       console.log(playHtResponse.data);
       const audioUrl = getUrlFromResponse(playHtResponse.data);
       setAudioResponseUrl(audioUrl);
