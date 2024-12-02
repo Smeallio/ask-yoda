@@ -8,10 +8,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <html lang="en">
       <head>
         {" "}
-        <title>Yoda Translator</title>
+        <title>Ask Yoda</title>
         <meta
           name="description"
-          content="Enter some text and we'll repeat that back to you in Yoda"
+          content="Got a question on your mind? Why not ask the wise and powerful Yoda for some advice?"
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
