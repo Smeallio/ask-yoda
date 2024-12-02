@@ -40,6 +40,10 @@ theme = createTheme(theme, {
         fontSize: "1.75rem",
         lineHeight: "2.25rem",
       },
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "1.25rem",
+        lineHeight: "1.5rem",
+      },
     },
     body1: {
       fontFamily: starJedi.style.fontFamily,
@@ -47,6 +51,10 @@ theme = createTheme(theme, {
       color: "#FFF",
       textAlign: "center",
       textTransform: "lowercase",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "0.75rem",
+        lineHeight: "1.125rem",
+      },
     },
   },
   components: {
@@ -61,6 +69,9 @@ theme = createTheme(theme, {
           },
           [theme.breakpoints.down("md")]: {
             width: "100%",
+          },
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "1rem",
           },
         },
       },
@@ -88,6 +99,10 @@ export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     fontSize: "0.9325rem",
+    width: "100%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "0.75rem",
     width: "100%",
   },
 }));

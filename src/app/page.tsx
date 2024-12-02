@@ -162,7 +162,12 @@ const HomePage: React.FC = () => {
               src="../images/yoda-glow.png"
               alt="YODA"
               position="relative"
-              maxHeight={{ xs: "20rem", md: "22.5rem", lg: "25rem" }}
+              maxHeight={{
+                xs: "15rem",
+                sm: "20rem",
+                md: "22.5rem",
+                lg: "25rem",
+              }}
               mt={2}
               mr={{ xs: 0, md: 4 }}
               flexShrink={0}

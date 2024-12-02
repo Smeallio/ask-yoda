@@ -10,8 +10,8 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   return (
     <Box
       position="relative"
-      width={{ xs: "80vw", md: `${width}%`, lg: `${width + 400}px` }}
-      height={{ xs: `${height}rem` }}
+      width={{ xs: `${width - 10}%`, lg: `${width + 400}px` }}
+      height={{ xs: `${height - 3}rem`, lg: `${height}rem` }}
       maxWidth={{ xs: "30rem", md: "none" }}
       margin="2rem auto"
     >
