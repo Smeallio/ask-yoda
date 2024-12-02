@@ -38,7 +38,7 @@ const Response: React.FC<ResponseProps> = ({
             borderBottomLeftRadius: "10%",
             borderLeft: 0,
             borderBottom: 0,
-            marginTop: { xs: 0, md: "-30%" },
+            marginTop: { xs: 0, md: "-5rem" },
             marginLeft: { xs: 0, md: "-3rem" },
             marginBottom: { xs: "-3rem", md: 0 },
           },
@@ -53,7 +53,7 @@ const Response: React.FC<ResponseProps> = ({
           message="Yoda will speak soon..."
         />
       ) : (
-        <Box my={4}>
+        <Box my={{ xs: 2, md: 4 }}>
           {audioResponseUrl && (
             <audio controls style={{ width: "100%", height: "40px" }}>
               <source src={audioResponseUrl} type="audio/mpeg" />
