@@ -111,6 +111,8 @@ const HomePage: React.FC = () => {
     return null;
   };
 
+  console.log(process.env.OPENAI_API_KEY);
+
   return (
     <main className="main">
       <Stack
