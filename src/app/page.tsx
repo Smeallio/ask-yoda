@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
       const playHtResponse = await axios.post("/api/playht", {
         text: yodaResponseText,
         voice:
-          "https://peregrine-results.s3.amazonaws.com/pigeon/Dlvkc2GyztgdhTmtZ2_0.mp3",
+          "s3://voice-cloning-zero-shot/37499fc2-c2c8-490f-a3f7-de463d72216a/original/manifest.json",
         output_format: "mp3",
         voice_engine: "PlayHT2.0",
         speed: 0.8,
