@@ -38,7 +38,7 @@ const Response: React.FC<ResponseProps> = ({
             borderBottomLeftRadius: "10%",
             borderLeft: 0,
             borderBottom: 0,
-            marginTop: { xs: 0, md: "-5rem" },
+            marginTop: { xs: 0, md: "-2rem" },
             marginLeft: { xs: 0, md: "-3rem" },
             marginBottom: { xs: "-3rem", md: 0 },
           },

@@ -18,7 +18,7 @@ const handler = async (
   }
 
   try {
-    console.log("Sending request to Open API with prompt: ", prompt);
+    // console.log("Sending request to Open API with prompt: ", prompt);
 
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",

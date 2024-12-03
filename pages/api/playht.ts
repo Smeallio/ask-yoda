@@ -12,8 +12,8 @@ const handler = async (
       const apiKey = process.env.PLAYHT_API_KEY;
       const userId = process.env.PLAYHT_USER_ID;
 
-      console.log("API Key ", apiKey);
-      console.log("userId ", userId);
+      // console.log("API Key ", apiKey);
+      // console.log("userId ", userId);
 
       if (!apiKey || !userId) {
         return res.status(500).json({ error: "Missing API key or User ID" });
@@ -32,7 +32,7 @@ const handler = async (
         }
       );
 
-      console.log("PlayHT Response Data: ", response.data);
+      // console.log("PlayHT Response Data: ", response.data);
 
       res.status(200).json(response.data);
     } catch (error) {
