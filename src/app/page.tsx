@@ -49,6 +49,7 @@ const HomePage: React.FC = () => {
       // First API call to OpenAI
       const openAiResponse = await axios.post("/api/openai", { prompt });
       const yodaResponseText = openAiResponse.data.result;
+      console.log(yodaResponseText);
       setResponseData(yodaResponseText);
       setTextLoading(false);
       setAudioLoading(true);
