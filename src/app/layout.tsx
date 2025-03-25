@@ -7,7 +7,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <head>
-        {" "}
         <title>Ask Yoda</title>
         <meta
           name="description"

@@ -57,7 +57,7 @@ const HomePage: React.FC = () => {
       const timeoutId = setTimeout(() => {
         setShowTextOnly(true);
         console.log("Time out started: ", timeoutId);
-      }, 30000); // 30-second delay before showing text-only fallback
+      }, 60000); // 60-second delay before showing text-only fallback
 
       // Second API call to PlayHT
       const playHtResponse = await axios.post("/api/playht", {
