@@ -1,13 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { ResponseProps } from "app/interfaces/ResponseProps";
-import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 
-const Response: React.FC<ResponseProps> = ({
-  yodaResponseText,
-  audioLoading,
-  audioResponseUrl,
-  resetData,
-}) => {
+const Response: React.FC<ResponseProps> = ({ yodaResponseText, resetData }) => {
   return (
     <Box
       display="flex"
@@ -24,44 +18,25 @@ const Response: React.FC<ResponseProps> = ({
           borderRadius: "0.5rem",
           display: "inline-block",
           position: "relative",
-          marginBottom: { xs: "2rem", md: 0 },
+          marginTop: { xs: "2rem", md: 0 },
+          marginBottom: { xs: 0, md: "2rem" },
           "&::after": {
             content: '""',
             position: "absolute",
-            left: { xs: "55%", md: 0 },
-            bottom: { xs: 0, md: "auto" },
+            left: "-2rem",
+            top: "20%",
             width: 0,
             height: 0,
-            border: "3rem solid transparent",
-            borderTopColor: { xs: "white", md: "transparent" },
-            borderRightColor: { xs: "transparent", md: "white" },
-            borderBottomLeftRadius: "10%",
+            border: "2rem solid transparent",
+            borderTop: "1rem solid transparent",
+            borderBottom: "1rem solid transparent",
+            borderRightColor: "white",
             borderLeft: 0,
-            borderBottom: 0,
-            marginTop: { xs: 0, md: "-2rem" },
-            marginLeft: { xs: 0, md: "-3rem" },
-            marginBottom: { xs: "-3rem", md: 0 },
           },
         }}
       >
         {yodaResponseText}
       </Typography>
-      {audioLoading ? (
-        <LoadingSkeleton
-          width={100}
-          height={5}
-          message="Yoda will speak soon..."
-        />
-      ) : (
-        <Box my={{ xs: 2, md: 4 }}>
-          {audioResponseUrl && (
-            <audio controls style={{ width: "100%", height: "40px" }}>
-              <source src={audioResponseUrl} type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-          )}
-        </Box>
-      )}
       <Button
         type="submit"
         variant="contained"

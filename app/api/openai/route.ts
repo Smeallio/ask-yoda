@@ -1,24 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> => {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} not allowed`);
-    return;
-  }
-
-  const { prompt } = req.body;
-
-  if (!prompt) {
-    return res.status(400).json({ error: "Please provide a prompt" });
-  }
-
+export async function POST(request: NextRequest) {
   try {
-    // console.log("Sending request to Open API with prompt: ", prompt);
+    const { prompt } = await request.json();
+    if (!prompt) {
+      return NextResponse.json(
+        { error: "Please provide a prompt" },
+        { status: 400 }
+      );
+    }
 
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
@@ -46,18 +37,22 @@ const handler = async (
       }
     );
 
-    res.status(200).json({ result: response.data.choices[0].message.content });
+    return NextResponse.json({
+      result: response.data.choices[0].message.content,
+    });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Axios error response: ", error.response?.data);
-      res
-        .status(error.response?.status || 500)
-        .json({ error: error.response?.data || "An unknown error occurred" });
+      return NextResponse.json(
+        { error: error.response?.data || "An unknown error occurred" },
+        { status: error.response?.status || 500 }
+      );
     } else {
       console.error("Unexpected error: ", error);
-      res.status(500).json({ error: "An unknown error occurred" });
+      return NextResponse.json(
+        { error: "An unknown error occurred" },
+        { status: 500 }
+      );
     }
   }
-};
-
-export default handler;
+}

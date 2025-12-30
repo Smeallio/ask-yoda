@@ -10,10 +10,7 @@ import Cookies from "js-cookie";
 
 const HomePage: React.FC = () => {
   const [textLoading, setTextLoading] = useState<boolean>(false);
-  const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const [responseData, setResponseData] = useState<string>("");
-  const [audioResponseUrl, setAudioResponseUrl] = useState<string | null>("");
-  const [showTextOnly, setShowTextOnly] = useState<boolean>(false);
 
   useEffect(() => {
     // Check if the cookie is already set; if not, initialize it to 0
@@ -23,16 +20,11 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleFormSubmit = async (prompt: string) => {
+    // Set max question count per day to 3
     const questionCount = parseInt(Cookies.get("question_count") || "0", 10);
-
-    console.log("Question count: ", questionCount);
-
     if (questionCount >= 3) {
       setResponseData(
         "Nosy, you are. Many questions, you ask. Old and weary, Yoda grows. Answer more, I will, tomorrow perhaps."
-      );
-      setAudioResponseUrl(
-        "https://peregrine-results.s3.amazonaws.com/pigeon/Dlvkc2GyztgdhTmtZ2_0.mp3"
       );
       return;
     }
@@ -44,72 +36,14 @@ const HomePage: React.FC = () => {
       Cookies.set("question_count", newQuestionCount.toString(), {
         expires: 1, // 1 day
       });
-      console.log("Cookie set:", Cookies.get("question_count")); // Check cookie value
-
       // First API call to OpenAI
       const openAiResponse = await axios.post("/api/openai", { prompt });
       const yodaResponseText = openAiResponse.data.result;
-      console.log(yodaResponseText);
       setResponseData(yodaResponseText);
       setTextLoading(false);
-      setAudioLoading(true);
-
-      // Start a timeout to display text only if audio is delayed
-      const timeoutId = setTimeout(() => {
-        setShowTextOnly(true);
-        console.log("Time out started: ", timeoutId);
-      }, 60000); // 60-second delay before showing text-only fallback
-
-      // Second API call to PlayHT
-      const playHtResponse = await axios.post("/api/playht", {
-        text: yodaResponseText,
-        voice:
-          "s3://voice-cloning-zero-shot/37499fc2-c2c8-490f-a3f7-de463d72216a/original/manifest.json",
-        output_format: "mp3",
-        voice_engine: "PlayHT2.0",
-        speed: 0.8,
-      });
-
-      // Extract URL from PlayHT response
-      console.log(playHtResponse.data);
-      const audioUrl = getUrlFromResponse(playHtResponse.data);
-      setAudioResponseUrl(audioUrl);
-      setAudioLoading(false);
-
-      // Clear the timeout if the audio URL is received before 30 seconds
-      if (audioUrl) {
-        clearTimeout(timeoutId);
-        setShowTextOnly(false); // Reset the text-only flag if audio URL arrives
-        console.log("Time out cleared: ", timeoutId);
-      }
     } catch (error) {
       console.error("Error during API calls:", error);
     }
-  };
-
-  const getUrlFromResponse = (response: string): string | null => {
-    try {
-      const lines = response.split("\n");
-      for (const line of lines) {
-        // Process only lines with "data: "
-        if (line.startsWith("data:")) {
-          const trimmedLine = line.replace("data: ", "").trim();
-
-          // Skip if trimmedLine is not valid JSON (e.g., ping events)
-          if (!trimmedLine.startsWith("{")) continue;
-
-          const data = JSON.parse(trimmedLine);
-          console.log(data);
-          // Check for stage "complete" and return the URL
-          if (data.stage === "complete" && data.url) {
-            return data.url;
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Error parsing response:", error);
-    }
-    return null;
   };
 
   return (
@@ -187,12 +121,8 @@ const HomePage: React.FC = () => {
             ) : responseData ? (
               <Response
                 yodaResponseText={responseData}
-                audioLoading={audioLoading}
-                audioResponseUrl={showTextOnly ? null : audioResponseUrl}
                 resetData={() => {
                   setResponseData("");
-                  setAudioResponseUrl(null);
-                  setShowTextOnly(false);
                 }}
               />
             ) : (
