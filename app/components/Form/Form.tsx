@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Box, Button } from "@mui/material";
-import { StyledTextArea } from "@/app/theme/muiTheme";
+import { StyledTextArea } from "app/theme/muiTheme";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-import { FormProps } from "@/app/interfaces/FormProps";
+import { FormProps } from "app/interfaces/FormProps";
 
 const Form: React.FC<FormProps> = ({ onFormSubmit }) => {
   const [formText, setFormText] = useState<string>("");

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { StyledLoadingSkeleton } from "@/app/theme/muiTheme";
-import { LoadingSkeletonProps } from "@/app/interfaces/LoadingSkeletonProps";
+import { StyledLoadingSkeleton } from "app/theme/muiTheme";
+import { LoadingSkeletonProps } from "app/interfaces/LoadingSkeletonProps";
 
 const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   width,

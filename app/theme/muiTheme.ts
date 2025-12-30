@@ -8,7 +8,7 @@ import localFont from "next/font/local";
 const starJedi = localFont({
   src: [
     {
-      path: "../../../public/font/Starjedi.ttf",
+      path: "../../public/font/Starjedi.ttf",
     },
   ],
 });

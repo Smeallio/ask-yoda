@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { ResponseProps } from "@/app/interfaces/ResponseProps";
+import { ResponseProps } from "app/interfaces/ResponseProps";
 import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 
 const Response: React.FC<ResponseProps> = ({
