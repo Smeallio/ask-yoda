@@ -152,7 +152,6 @@ const HomePage: React.FC = () => {
           maxWidth={{ xs: "32rem", md: "none" }}
         >
           <Grid
-            item
             display="flex"
             justifyContent={{ xs: "center", md: "flex-end" }}
             alignItems="flex-end"
@@ -175,7 +174,6 @@ const HomePage: React.FC = () => {
             />
           </Grid>
           <Grid
-            item
             display="flex"
             justifyContent="center"
             width={{ xs: "100%", md: "50%" }}
