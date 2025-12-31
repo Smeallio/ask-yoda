@@ -1,8 +1,8 @@
 "use client";
 
 import { createTheme, styled } from "@mui/material/styles";
-import { Skeleton, TextareaAutosize } from "@mui/material";
-import { keyframes } from "@mui/system";
+import { Skeleton, TextareaAutosize, Typography } from "@mui/material";
+import { borderBottom, borderRightColor, keyframes } from "@mui/system";
 import localFont from "next/font/local";
 
 const starJedi = localFont({
@@ -104,6 +104,47 @@ export const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     fontSize: "0.75rem",
     width: "100%",
+  },
+}));
+
+export const StyledSpeechBubble = styled(Typography)(({ theme }) => ({
+  backgroundColor: "white",
+  color: "black",
+  padding: "1rem",
+  borderRadius: "0.5rem",
+  display: "inline-block",
+  position: "relative",
+  marginTop: "2rem",
+  marginBottom: 0,
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: "60%",
+    bottom: "-2rem",
+    width: 0,
+    height: 0,
+    border: "2rem solid transparent",
+    borderTop: "1rem solid transparent",
+    borderBottom: "1rem solid transparent",
+    borderTopColor: "white",
+  },
+  [theme.breakpoints.up("md")]: {
+    position: "relative",
+    marginTop: 0,
+    marginBottom: "2rem",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      left: "-2rem",
+      top: "20%",
+      width: 0,
+      height: 0,
+      border: "2rem solid transparent",
+      borderTop: "1rem solid transparent",
+      borderBottom: "1rem solid transparent",
+      borderRightColor: "white",
+      borderLeft: 0,
+    },
   },
 }));
 
