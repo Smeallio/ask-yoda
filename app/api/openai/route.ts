@@ -38,8 +38,6 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    console.log(response.data);
-
     return NextResponse.json({
       result: response.data.choices[0].message.content,
     });
