@@ -14,9 +14,7 @@ export async function POST(request: NextRequest) {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
-        model: "gpt-5-instant",
-        max_tokens: 100,
-        temperature: 0.5,
+        model: "gpt-4o",
         messages: [
           {
             role: "system",
@@ -28,14 +26,19 @@ export async function POST(request: NextRequest) {
             content: prompt,
           },
         ],
+        max_tokens: 100,
+        temperature: 0.5,
       },
       {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         },
+        timeout: 10000,
       }
     );
+
+    console.log(response.data);
 
     return NextResponse.json({
       result: response.data.choices[0].message.content,

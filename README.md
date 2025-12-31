@@ -4,7 +4,7 @@ Ever had a question on your mind and no idea who to turn to? Well fret no more m
 
 ## ✨ Features
 
-- Real-time Yoda answers powered by GPT-5
+- Real-time Yoda answers powered by GPT-4o
 - Responsive design (mobile + desktop)
 - Daily question limit (3 free/day)
 - Netlify serverless deployment
@@ -13,7 +13,7 @@ Ever had a question on your mind and no idea who to turn to? Well fret no more m
 
 - **Framework:** Next.js 16 (App Router)
 - **UI:** Material UI 7
-- **AI:** OpenAI GPT-5 Instant
+- **AI:** OpenAI GPT-4o
 
 ## 🔮 Future Ideas
 
